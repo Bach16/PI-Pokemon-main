@@ -1,0 +1,26 @@
+ 
+.landing {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    background-image: url("https://i.pinimg.com/originals/0d/ef/e2/0defe2300cdbb41ff4a24e604e8cb729.jpg");
+    background-repeat: no-repeat ;
+    background-size:cover;
+    background-position:top ;
+    height: 100vh;
+    color: white;
+}
+.landing .boton{
+    min-width: 150px;
+    width: 20%;
+    height: 55px;
+    padding: 10px;
+    margin-left: 10%;
+    border: none;
+    background-color: #ffde8f;
+    color:  #1b1d21;    
+    font-weight: bold;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 5px;
+}

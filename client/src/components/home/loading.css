@@ -1,0 +1,7 @@
+.loading{
+    background-image: url("https://cdn.dribbble.com/users/1081076/screenshots/2832850/pokemongo.gif");
+    background-size:contain ;
+    background-position: center;
+    height: 100vh;
+    background-repeat: no-repeat;
+}
