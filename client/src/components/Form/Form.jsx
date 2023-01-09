@@ -1,8 +1,25 @@
 import React from "react"
 import FormInput from "./FormInput"
+import {useState} from "react"
+import { connect } from "react-redux"
+import { postPokemon } from "../../redux/actions"
+import { useSelector, useDispatch } from "react-redux"
 
 
-const Form = ({types, postPokemon}) => {
+
+const Form = (props) => {
+    const dispatch = useDispatch()
+    const types = useSelector(state => state.types)
+
+    const [input,setInput] = useState({
+        name: "",
+        health: "",
+        attack:"",
+        defense:"",
+        speed:"",
+        height:"",
+        weight:""
+    })
     const inputs = [
         {
             id:1,
@@ -48,7 +65,7 @@ const Form = ({types, postPokemon}) => {
         },        
         {
             id:7,
-            name:"Weight",
+            name:"weight",
             type:"number",
             placeholder:"Weight",
             label:"Weight",
@@ -56,10 +73,13 @@ const Form = ({types, postPokemon}) => {
     ]
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log("aja");
+        dispatch(postPokemon(input))
     }
-    const onChange = () => {
-        console.log("ajas 2");
+    const onChange = (e) => {
+        setInput({
+            ...input,
+            [e.target.name]:e.target.value
+        })
     }
     return (
         <>
@@ -69,15 +89,15 @@ const Form = ({types, postPokemon}) => {
                 <button 
                 className="submit" 
                 type="submit" 
-                //disabled={!input.name||!input.health||!input.attack||!input.defense}
+                //disabled={!input.name}
                 >
                 Create</button>
                 {inputs.map((i) => (
                     <FormInput
                     key={i.id} 
                     {...i} 
-                    //value={input[i.name]} 
-                    onChange={onChange}/>
+                    value={input[i.name]} 
+                    onChange={(e) => onChange(e)}/>
                 ))}
             </form>
         </div>
@@ -85,4 +105,5 @@ const Form = ({types, postPokemon}) => {
     )
 }
 
-export default Form
+
+export default (Form)

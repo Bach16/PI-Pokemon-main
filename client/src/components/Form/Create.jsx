@@ -25,14 +25,12 @@ const Create = (props) => {
 }
 const mapStateToProps = (state) => {
     return{
-        post: state.post,
         types: state.types
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return{
-        postPokemon:() => dispatch(postPokemon()),
         getTypes:() => dispatch(getTypes())
     }
 }

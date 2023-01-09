@@ -1,12 +1,24 @@
 import axios from "axios";
-export const GET_POKEMONS = "GET_RECIPES";
-export const GET_POKEMON = "GET_RECIPE"
-export const POST_POKEMON = "POST_RECIPE"
-export const GET_TYPES = "GET_DIETS"
+export const GET_POKEMONS = "GET_POKEMONS";
+export const GET_POKEMON = "GET_POKEMON"
+export const POST_POKEMON = "POST_POKEMONS"
+export const GET_TYPES = "GET_TYPES"
 export const ERROR = "ERROR"
 
 
-
+const obj = {
+	"name": "jojsaddos",
+	"health" : 305,
+	"attack" : 527,
+	"defense" : 8,
+	"speed" : 55,
+	"height" : 584,
+	"weight":54,
+	"types" : [
+			"4",
+			"3"
+		]
+}
 export const getPokemons = () => {
     return function(dispatch){
         try {            
@@ -29,14 +41,17 @@ export const getPokemon = (id) => {
     }
 }
 
-export const postPokemon = (recipe) => {
+export const postPokemon = (pokemon) => {
+    console.log(pokemon);
     return async function (dispatch){
         try {
-         const response = await axios.post("http://localhost:3001/pokemons", recipe)
+         axios.post("http://localhost:3001/pokemons",obj)
+         .then(console.log("ajas"))
          dispatch({
-            type: POST_POKEMON, payload: response.data
+            type: POST_POKEMON, payload: "response.data"
          })
         } catch (error) {
+            console.log(error);
             dispatch({type:ERROR, payload: error})   
         }
     }
