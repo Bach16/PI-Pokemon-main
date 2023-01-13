@@ -6,6 +6,7 @@ export const GET_TYPES = "GET_TYPES"
 export const SEARCH_POKEMON = "SEARCH_POKEMON"
 export const ERROR = "ERROR"
 export const RESET = "RESET"
+export const RESET_FILTERS = "RESET_FILTERS"
 export const FILTER = "FILTER"
 export const FILTERED = "FILTERED"
 let aux = []
@@ -60,6 +61,16 @@ export const Reset = () => {
         }
     }
 }
+export const ResetFilters = () => {
+    return function(dispatch){
+        try {            
+            dispatch({type:RESET_FILTERS, payload:[] })
+        } catch (error) {
+            dispatch({type:ERROR, payload: error})
+        }
+    }
+}
+
 export const postPokemon = (pokemon) => {
     return async function (dispatch){
         try {

@@ -27,12 +27,14 @@ const FilterByTypes = () => {
 
     const onChange = (e) => {
         setFilter({[e.target.name]:e.target.value})
+        if (e.target.name)
         settypesToDispatch({[e.target.name]:[...typesToDispatch.types,e.target.value]})
     }
     
     
     const handleSubmit = (e) => {
         e.preventDefault()
+        if(!filter.types) return
         dispatch(filtering(filter.types))
         dispatch(filtered(typesToDispatch.types,pokemons))
         setFilter({
@@ -43,7 +45,7 @@ const FilterByTypes = () => {
     <form className="addtypes" onSubmit={(e) => handleSubmit(e)}>
             <label className="label" htmlFor="Types">Filter</label>
             <select className="typeInput" type="text" name='types' value={filter.types} onChange={onChange}>
-                <option className="type" value={null} key = {null}>Types</option> 
+                <option className="type" value={null} key ={null} >Types</option> 
                     {types.length ? types.map(e => {
                         return <option className="type" value={e.name} key = {e.id}>{e.name}</option> 
                     }): null }         

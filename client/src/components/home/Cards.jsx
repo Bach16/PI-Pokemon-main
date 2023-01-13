@@ -14,9 +14,8 @@ const Cards = (props) => {
     const filtros = useSelector(state => state.filters)
 
     useEffect(() => {
-        dispatch(filtered(filtros, props.pokemons)) 
+        if(filtros)dispatch(filtered(filtros, props.pokemons)) 
      }, []) 
-     console.log(filtrados);
     if ( !filtrados.length && filtros.length ) {
         return (
             <PokemonNotFound/>          

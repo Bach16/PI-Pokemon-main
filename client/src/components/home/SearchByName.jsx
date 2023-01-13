@@ -1,6 +1,6 @@
 import React from "react"
 import { useSelector, useDispatch } from "react-redux"
-import {searchPokemon,Reset} from "../../redux/actions"
+import {searchPokemon,ResetFilters,Reset} from "../../redux/actions"
 import {useEffect, useState} from "react";
 
 
@@ -19,6 +19,7 @@ const SearchByName = ({placeholder}) => {
     }
     const handleSubmit = (e) => {
         e.preventDefault()
+        dispatch(ResetFilters())
         dispatch(Reset())
         dispatch(searchPokemon(input.search))
     }

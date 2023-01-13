@@ -1,4 +1,4 @@
-import { GET_POKEMON, GET_POKEMONS, POST_POKEMON, ERROR, GET_TYPES, SEARCH_POKEMON,RESET,FILTERED, FILTER} from "./actions"
+import { GET_POKEMON, GET_POKEMONS, POST_POKEMON, ERROR,RESET_FILTERS, GET_TYPES, SEARCH_POKEMON,RESET,FILTERED, FILTER} from "./actions"
 
 const initialState = {
     pokemons: [],
@@ -45,7 +45,7 @@ const rootReducer =(state=initialState,action) =>{
         case RESET:             
             return {
                 ...state,
-                pokemons: action.payload
+                filtered: action.payload
             }  
         case FILTERED:
             return{
@@ -57,6 +57,11 @@ const rootReducer =(state=initialState,action) =>{
                 ...state,
                 filters:[...state.filters,action.payload] 
             }
+        case RESET_FILTERS:
+            return {
+                ...state,
+                filters: action.payload
+            } 
         default:
             return {...state}
     }
