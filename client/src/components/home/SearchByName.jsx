@@ -1,10 +1,38 @@
 import React from "react"
+import { useSelector, useDispatch } from "react-redux"
+import {searchPokemon,Reset} from "../../redux/actions"
+import {useEffect, useState} from "react";
 
-const SearchByName = () => {
+
+const SearchByName = ({placeholder}) => {
+    const byName = useSelector(state => state.types)
+    const dispatch = useDispatch()
+    const [input,setInput] = useState({
+        search: ""        
+    })
+
+    const onChange = (e) => {
+        setInput({
+            ...input,
+            [e.target.name]:e.target.value
+        }) 
+    }
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        dispatch(Reset())
+        dispatch(searchPokemon(input.search))
+    }
+
     return (
         <>
         <div className="SearchByName">
-            <h1>SearchByName</h1>            
+            <form onSubmit={handleSubmit}>
+                <button 
+                    className="submit" 
+                    type="submit">
+                </button>
+                <input type="text" name="search" placeholder={placeholder} onChange={onChange} value={input.search}></input>
+            </form>          
         </div>
         </>
     )

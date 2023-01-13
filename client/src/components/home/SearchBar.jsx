@@ -1,12 +1,14 @@
 import React from "react"
 import SearchByName from "./SearchByName"
+import FilterByTypes from "./FilterByTypes"
+
 
 const SearchBar = () => {
     return (
         <>
-        <div className="SearchBar">
-            <h1>SearchBar</h1> 
-            <SearchByName/>           
+        <div className="SearchBar">            
+            <SearchByName placeholder="Search"/>
+            <FilterByTypes/>           
         </div>
         </>
     )

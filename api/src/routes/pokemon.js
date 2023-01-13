@@ -6,25 +6,34 @@ const {allPokemons,getPokemonByID,getPokemonByName} = require('../controllers/ge
 
 
 const pokemonRouter = express.Router()
+pokemonRouter.get("/", async (req,res,next) => {
+    try {
+        const {name} = req.query
+        if (Object.keys(req.query).length) {
+            if (name) {
+                const pokemonDb = await dbPokemonByName(name)
+                const pokemonApi = await getPokemonByName(name)
+                const response = [...pokemonApi,...pokemonDb]
+                if(response.length)  res.status(200).send(response)
+                else throw new Error("Pokemon not found")
+            }
+            else{
+                throw new Error("Pokemon not found")
+            } 
+        } else next()
+    }catch (error) {
+        res.status(400).send({error:error.message})
+    }
+})
 
 pokemonRouter.get("/", async (req,res) => {
     try {
-        const {name} = req.query
         if(!Object.keys(req.query).length){
             const db = await dbPokemons()
             const responseApi = await allPokemons()
             const response = [...responseApi,...db]
             res.status(200).send(response)               
-        } 
-        else if (name) {
-            const pokemonDb = await dbPokemonByName(name)
-            const pokemonApi = await getPokemonByName(name)
-            const response = [...pokemonApi,...pokemonDb]
-            if(response.length)  res.status(200).send(response)
-            else throw new Error("Pokemon not found")
-        }else{
-            throw new Error("Pokemon not found")
-        } 
+        }         
     } catch (error) {
         res.status(400).send({error:error.message})
     }

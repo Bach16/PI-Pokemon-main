@@ -1,7 +1,6 @@
 import React from "react"
 import FormInput from "./FormInput"
 import {useState} from "react"
-import { connect } from "react-redux"
 import { postPokemon } from "../../redux/actions"
 import { useSelector, useDispatch } from "react-redux"
 
@@ -10,6 +9,18 @@ import { useSelector, useDispatch } from "react-redux"
 const Form = (props) => {
     const dispatch = useDispatch()
     const types = useSelector(state => state.types)
+    
+
+    const validateForm = (input) => {
+        console.log(input.name);
+        const errors ={}
+        if (!input.name){
+            errors.name = "the name is required"
+        }
+        return errors
+    }
+
+    
 
     const [input,setInput] = useState({
         name: "",
@@ -71,6 +82,8 @@ const Form = (props) => {
             label:"Weight",
         }
     ]
+    const [error, setError] = useState({})
+
     const handleSubmit = (e) => {
         e.preventDefault()
         dispatch(postPokemon(input))
@@ -79,8 +92,11 @@ const Form = (props) => {
         setInput({
             ...input,
             [e.target.name]:e.target.value
-        })
+        }) 
+        setError(validateForm(input))       
+                       
     }
+
     return (
         <>
         <div className="Form">
@@ -89,7 +105,7 @@ const Form = (props) => {
                 <button 
                 className="submit" 
                 type="submit" 
-                //disabled={!input.name}
+                disabled={!input.name}
                 >
                 Create</button>
                 {inputs.map((i) => (

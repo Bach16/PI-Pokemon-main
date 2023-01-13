@@ -1,0 +1,7 @@
+.loading{
+    background-image: url("https://pbs.twimg.com/ext_tw_video_thumb/1429510996243226629/pu/img/GZ4m7WqHX4E-toyx.jpg:large");
+    background-size:contain ;
+    background-position: center;
+    height: 100vh;
+    background-repeat: no-repeat;
+}
