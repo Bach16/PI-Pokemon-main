@@ -1,4 +1,4 @@
-import { GET_POKEMON, GET_POKEMONS, POST_POKEMON, ERROR,RESET_FILTERS, GET_TYPES, SEARCH_POKEMON,RESET,FILTERED, FILTER} from "./actions"
+import { GET_POKEMON, GET_POKEMONS,RESET_SORT,SORT_BY_AZ, POST_POKEMON,SORT, ERROR,RESET_FILTERS, GET_TYPES,RESET_POKEMON, SEARCH_POKEMON,RESET,FILTERED, FILTER} from "./actions"
 
 const initialState = {
     pokemons: [],
@@ -7,7 +7,8 @@ const initialState = {
     post: {},
     types: [],
     filtered:[],
-    filters:[]
+    filters:[],
+    sort:[]
 }
 
 const rootReducer =(state=initialState,action) =>{
@@ -60,8 +61,28 @@ const rootReducer =(state=initialState,action) =>{
         case RESET_FILTERS:
             return {
                 ...state,
-                filters: action.payload
+                filters: action.payload,
             } 
+        case RESET_POKEMON:
+            return {
+                ...state,
+                pokemon: action.payload
+            }
+        case SORT:
+            return {
+                ...state,
+                filtered: action.payload
+            }
+        case SORT_BY_AZ:
+            return {
+                ...state,
+                sort: action.payload
+            }
+        case RESET_SORT:
+            return {
+                ...state,
+                sort: action.payload
+            }
         default:
             return {...state}
     }

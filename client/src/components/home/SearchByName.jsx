@@ -1,16 +1,15 @@
 import React from "react"
-import { useSelector, useDispatch } from "react-redux"
+import { useDispatch } from "react-redux"
 import {searchPokemon,ResetFilters,Reset} from "../../redux/actions"
-import {useEffect, useState} from "react";
+import { useState} from "react";
+import "./SearchByName.css"
 
 
 const SearchByName = ({placeholder}) => {
-    const byName = useSelector(state => state.types)
     const dispatch = useDispatch()
     const [input,setInput] = useState({
         search: ""        
     })
-
     const onChange = (e) => {
         setInput({
             ...input,
@@ -19,6 +18,9 @@ const SearchByName = ({placeholder}) => {
     }
     const handleSubmit = (e) => {
         e.preventDefault()
+        setInput({
+            search: ""
+        })
         dispatch(ResetFilters())
         dispatch(Reset())
         dispatch(searchPokemon(input.search))
@@ -31,6 +33,7 @@ const SearchByName = ({placeholder}) => {
                 <button 
                     className="submit" 
                     type="submit">
+                        Search
                 </button>
                 <input type="text" name="search" placeholder={placeholder} onChange={onChange} value={input.search}></input>
             </form>          

@@ -3,19 +3,38 @@ import FormInput from "./FormInput"
 import {useState} from "react"
 import { postPokemon } from "../../redux/actions"
 import { useSelector, useDispatch } from "react-redux"
+import TypeInput from "./TypeInput"
+import Conteiner from "./Conteiner"
+import { useEffect } from "react"
+import Error from  "./Error"
 
 
 
-const Form = (props) => {
+const Form = () => {
     const dispatch = useDispatch()
-    const types = useSelector(state => state.types)
-    
-
+    const types = useSelector(state=>state.types)
+    const errors = useSelector(state => state.error)
     const validateForm = (input) => {
-        console.log(input.name);
         const errors ={}
-        if (!input.name){
+        if (!input.name ){
             errors.name = "the name is required"
+        }else if (!input.attack) {
+            errors.attack = "the attack is required"
+        }else if (!input.hp) {
+            errors.hp = "the hp is required"
+
+        }else if (!input.defense) {
+            errors.defense = "the defense is required"
+
+        }else if (!input.speed) {
+            errors.speed = "the speed is required"
+
+        }else if (!input.height) {
+            errors.height = "the height is required"
+
+        }else if (!input.weight) {
+            errors.weight = "the weight is required"
+
         }
         return errors
     }
@@ -24,12 +43,13 @@ const Form = (props) => {
 
     const [input,setInput] = useState({
         name: "",
-        health: "",
+        hp: "",
         attack:"",
         defense:"",
         speed:"",
         height:"",
-        weight:""
+        weight:"",
+        types:[] 
     })
     const inputs = [
         {
@@ -41,7 +61,7 @@ const Form = (props) => {
         },
         {
             id:2,
-            name:"health",
+            name:"hp",
             type:"number",
             placeholder:"Health",
             label:"Health",
@@ -83,21 +103,68 @@ const Form = (props) => {
         }
     ]
     const [error, setError] = useState({})
+    //------------------------------ Add Types ---------------------------------------------
+    const [items, setItems] = useState([])
+    const [newType, setNewType] = useState("")
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        dispatch(postPokemon(input))
+    const addType = (item) => { 
+        if (items.length > 1) return       
+        if (items.find(e=>e.item === item)) return
+        const id = items.length ? items[items.length - 1].id + 1 : 1
+        const myNewItem = {id, item}
+        const listItems = [...items,myNewItem]
+        setItems(listItems)
     }
-    const onChange = (e) => {
+    useEffect(() => {
+        for (let i = 0; i < items.length; i++) {
+            types.map(e=> {
+                if (e.name === items[i].item)
+                setInput({
+                    ...input,
+                    types: [...input.types,e.id]
+                })                 
+                else return
+            })
+            
+        }
+    },[items,types])
+
+    
+    const handleAddSubmit = (e) => {
+        e.preventDefault()        
+        if(!newType) return;
+        addType(newType)
+        setNewType("")
+        if (items.length > 2) return
+        
+    }
+    
+    const handleDelete = (id) => {
+        const listItems = items.filter((item) => item.id !== id)
+        setItems(listItems)
+    }
+    //----------------------------------------------------------------------------------
+    const handleSubmit = (e) => {
+        e.preventDefault() 
+        dispatch(postPokemon(input))
+        
+    }
+    
+    const onChange = (e) => {        
+
         setInput({
             ...input,
-            [e.target.name]:e.target.value
+            [e.target.name]:e.target.value            
         }) 
-        setError(validateForm(input))       
-                       
+        
+        setError(validateForm(input))                              
     }
-
-    return (
+    if (errors.message) {
+        return (
+            <Error/>
+        )
+    }else {
+        return (
         <>
         <div className="Form">
             <h1>Create recipe</h1>
@@ -116,9 +183,14 @@ const Form = (props) => {
                     onChange={(e) => onChange(e)}/>
                 ))}
             </form>
+                <TypeInput newType={newType} setNewType={setNewType} handleAddSubmit={handleAddSubmit} /> 
+                <Conteiner items={items} handleDelete={handleDelete} />
         </div>
         </>
     )
+    }
+
+    
 }
 
 

@@ -15,7 +15,7 @@ module.exports = (sequelize) => {
         allowNull: false,
         unique: true,      
       },
-      health: {
+      hp: {
         type: DataTypes.INTEGER
       },
       attack: {

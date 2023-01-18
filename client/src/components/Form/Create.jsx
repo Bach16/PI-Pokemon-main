@@ -9,7 +9,7 @@ import {getTypes, postPokemon } from "../../redux/actions"
 const Create = (props) => {
     useEffect(() => {
         if(!props.types.length) props.getTypes()
-    },[])
+    },[props])
 
     return (
         <>

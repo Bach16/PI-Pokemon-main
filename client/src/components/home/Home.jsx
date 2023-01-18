@@ -11,7 +11,7 @@ import SearchBar from "./SearchBar"
 const Home = (props) => {
     useEffect(() => {
         if(!props.pokemons.length) props.getPokemons()
-    }, []) 
+    },[props]) 
 
     if (props.pokemons.length) {
         return (

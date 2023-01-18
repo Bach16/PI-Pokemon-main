@@ -1,0 +1,18 @@
+.Card{
+    justify-self: center;
+    text-align: center;
+    width: 100%;
+    border-radius: 1rem;
+    background-color: rgba(0, 161, 0, 0.365)
+}
+.Card h2{
+    width: 100%;
+}
+.typesConteiner{
+    display: flex;
+    width: 70%;
+    margin: 0 auto 1.5rem;
+    align-items: center;
+    justify-content: space-around;
+    
+}

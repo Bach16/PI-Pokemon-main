@@ -2,46 +2,53 @@ import React from "react"
 import Card from "./Card"
 import PokemonNotFound from "./PokemonNotFound"
 import {filtered} from "../../redux/actions"
-
+import "./Cards.css"
 import {useSelector, useDispatch} from "react-redux"
 import {useEffect, useState} from "react";
+import Pagination from "./Pagination"
 
 
 
-const Cards = (props) => {
+const Cards = () => {
     const dispatch = useDispatch()
-    const filtrados = useSelector(state => state.filtered) 
-    const filtros = useSelector(state => state.filters)
+    const pokemons = useSelector(state => state.pokemons) 
+    const filters = useSelector(state => state.filters)
+    const filtrados = useSelector(state => state.filtered)
+    const sort = useSelector(state=>state.sort)
+    
+    useEffect(()=>{
+        if(!filtrados.length)dispatch(filtered(null,pokemons))
+    },[dispatch,pokemons])
 
-    useEffect(() => {
-        if(filtros)dispatch(filtered(filtros, props.pokemons)) 
-     }, []) 
-    if ( !filtrados.length && filtros.length ) {
+//-------------------pagination---------------------------------------------
+    const [page,setPage] = useState(1)
+    const [perPage,setPerPage] = useState(12)
+
+    
+    
+    const max = Math.ceil(filtrados.length / perPage)
+
+    const lastCardIndex = page * perPage;
+    const firstCardIndex = lastCardIndex - perPage
+    const currentCard = sort.length ? sort.slice(firstCardIndex,lastCardIndex):filtrados.slice(firstCardIndex,lastCardIndex) 
+//--------------------------------------------------------------
+//-----------------------------------------------------------------
+   
+    
+    if ( !filtrados.length && filters.length ) {
         return (
             <PokemonNotFound/>          
         )
-    }else if(!filtrados.length) {
+    }else {
         return(
+            <>
+            <Pagination page={page} setPage={setPage} max={max}/>
+
+            
             <div className="cards">
+                
                 {
-                    props.pokemons.map(e => {
-                        return <Card
-                            key= {e.id}
-                            id={e.id}
-                            name= {e.name}
-                            image = {e.image}
-                            types = {e.types}
-                            />
-                        }
-                    )
-                }
-            </div>
-        )
-    } else {
-        return (
-            <div className="cards">
-                {                    
-                    filtrados.map(e => {
+                    currentCard.map(e => {
                         return <Card
                             key= {e.id}
                             id={e.id}
@@ -52,11 +59,12 @@ const Cards = (props) => {
                         }
                     )
                     
-                }   
-            </div>            
-        ) 
-    }
-    
+                }
+            </div>
+
+            </>
+        )
+    }     
     
 }
 
