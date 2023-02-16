@@ -2,14 +2,14 @@ import React from "react"
 
 
 const FormInput = (props) => {
-    const{label,errorMensage,onChange,id, ...inputProps} = props
+    const{label,errorMenssage,onChange,id, ...inputProps} = props
 
     return (
         <>
         <div className="formInput">
             <label className="label">{label}</label>
-            <input {...inputProps} onChange={onChange} /> 
-            <span>{errorMensage}</span>                   
+            <input {...inputProps} onChange={onChange} />
+          {/*  {errorMenssage.length? <span>{errorMenssage}</span> : null} */}                   
         </div>         
         </>
     )

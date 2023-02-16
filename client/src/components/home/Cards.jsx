@@ -35,7 +35,7 @@ const Cards = () => {
 //-----------------------------------------------------------------
    
     
-    if ( !filtrados.length && filters.length ) {
+    if ( !filtrados.length && filters.length && !pokemons.length ) {
         return (
             <PokemonNotFound/>          
         )

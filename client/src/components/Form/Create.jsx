@@ -1,8 +1,8 @@
 import NavBar from "../navbar"
 import Form from "./Form"
-import React, { useEffect, useState } from "react"
+import React, { useEffect} from "react"
 import { connect } from "react-redux"
-import {getTypes, postPokemon } from "../../redux/actions"
+import {getTypes} from "../../redux/actions"
 
 
 

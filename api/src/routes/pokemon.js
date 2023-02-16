@@ -60,7 +60,6 @@ pokemonRouter.get("/:id", async (req,res) => {
 pokemonRouter.post("/",async (req,res) => {
     try {
         const {name,types}  = req.body
-        console.log(req.body);
         if (!name||!types){
             return res.status(404).send("Missing data");
         } else {

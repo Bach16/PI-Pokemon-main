@@ -32,6 +32,9 @@ module.exports = (sequelize) => {
       },
       weight: {
         type: DataTypes.INTEGER
+      },
+      age: {
+        type: DataTypes.INTEGER
       }
     },
     {

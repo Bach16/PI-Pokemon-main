@@ -16,6 +16,7 @@ const Details = (props) => {
         dispatch(getPokemon(props.match.params.id))       
     },[dispatch,props.match.params.id])
     const pokemon = useSelector(state=>state.pokemon)
+    console.log(pokemon.age);
     if (pokemon.name) {
         return (
             <>
@@ -30,6 +31,7 @@ const Details = (props) => {
                     <h3>Hp: {pokemon.hp}</h3>
                     <h3>Speed: {pokemon.speed}</h3>
                     <h3>Weight: {pokemon.weight}</h3>
+                    <h3>age: {pokemon.age       }</h3>
                     <h3>Types:</h3>
                     {pokemon.types.map(t=>{
                         counter++

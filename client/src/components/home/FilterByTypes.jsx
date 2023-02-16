@@ -1,6 +1,6 @@
 import React from "react"
 import { useSelector, useDispatch } from "react-redux"
-import {getTypes,filtering,filtered,sortByAz} from "../../redux/actions"
+import {getTypes,filtering,filtered} from "../../redux/actions"
 import {useEffect, useState} from "react";
 
 
@@ -8,7 +8,6 @@ const FilterByTypes = () => {
     const dispatch = useDispatch()
     const types = useSelector(state => state.types)
     const filtros = useSelector(state => state.filters)
-    const pokemons = useSelector(state => state.pokemons)
     const filtrados = useSelector(state => state.filtered) 
 
 

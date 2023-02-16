@@ -18,11 +18,11 @@ const Form = () => {
         const errors ={}
         if (!input.name ){
             errors.name = "the name is required"
-        }else if (!input.attack) {
-            errors.attack = "the attack is required"
         }else if (!input.hp) {
             errors.hp = "the hp is required"
 
+        }else if (!input.attack) {
+            errors.attack = "the attack is required"
         }else if (!input.defense) {
             errors.defense = "the defense is required"
 
@@ -49,6 +49,7 @@ const Form = () => {
         speed:"",
         height:"",
         weight:"",
+        age: "",
         types:[] 
     })
     const inputs = [
@@ -100,7 +101,14 @@ const Form = () => {
             type:"number",
             placeholder:"Weight",
             label:"Weight",
-        }
+        },
+        {
+            id:8,
+            name:"age",
+            type:"number",
+            placeholder:"Age",
+            label:"Age",
+        },
     ]
     const [error, setError] = useState({})
     //------------------------------ Add Types ---------------------------------------------
@@ -146,8 +154,31 @@ const Form = () => {
     //----------------------------------------------------------------------------------
     const handleSubmit = (e) => {
         e.preventDefault() 
-        dispatch(postPokemon(input))
-        
+        if(input.name
+           &&input.hp
+           &&input.attack
+           &&input.defense
+           &&input.speed
+           &&input.height
+           &&input.weight
+           &&input.types.length) {
+               dispatch(postPokemon(input))
+               alert("Pokemon created")
+               setInput({
+                   name: "",
+                   hp: "",
+                   attack:"",
+                   defense:"",
+                   speed:"",
+                   height:"",
+                   weight:"",
+                   types:[] 
+               })
+            }
+            else{
+                dispatch(postPokemon(input))
+            }
+                 
     }
     
     const onChange = (e) => {        
@@ -155,8 +186,7 @@ const Form = () => {
         setInput({
             ...input,
             [e.target.name]:e.target.value            
-        }) 
-        
+        })         
         setError(validateForm(input))                              
     }
     if (errors.message) {
@@ -172,7 +202,15 @@ const Form = () => {
                 <button 
                 className="submit" 
                 type="submit" 
-                disabled={!input.name}
+                disabled={!input.name
+                    ||!input.hp
+                    ||!input.attack
+                    ||!input.defense
+                    ||!input.speed
+                    ||!input.height
+                    
+                    ||!input.types.length
+                }
                 >
                 Create</button>
                 {inputs.map((i) => (
@@ -180,6 +218,7 @@ const Form = () => {
                     key={i.id} 
                     {...i} 
                     value={input[i.name]} 
+                    //errorMenssage = {error}
                     onChange={(e) => onChange(e)}/>
                 ))}
             </form>
